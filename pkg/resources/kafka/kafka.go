@@ -148,6 +148,7 @@ func (r *Reconciler) Reconcile(log logr.Logger) error {
 		return errorfactory.New(errorfactory.StatusUpdateError{}, statusErr, "updating deprecated status failed")
 	}
 
+	// TODO 创建SVC
 	if r.KafkaCluster.Spec.HeadlessServiceEnabled {
 		o := r.headlessService()
 		err := k8sutil.Reconcile(log, r.Client, o, r.KafkaCluster)
@@ -163,6 +164,7 @@ func (r *Reconciler) Reconcile(log logr.Logger) error {
 	}
 
 	// Handle PDB
+	// TODO 根据配置决定是否创建PDB
 	if r.KafkaCluster.Spec.DisruptionBudget.Create {
 		o, err := r.podDisruptionBudget(log)
 		if err != nil {
@@ -175,6 +177,7 @@ func (r *Reconciler) Reconcile(log logr.Logger) error {
 	}
 
 	// Handle Pod delete
+	// TODO 因为没有借助STS，所以需要自己删除缩容的Pod
 	err := r.reconcileKafkaPodDelete(log)
 	if err != nil {
 		return errors.WrapIf(err, "failed to reconcile resource")
