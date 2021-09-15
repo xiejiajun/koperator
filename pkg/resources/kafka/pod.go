@@ -34,6 +34,7 @@ import (
 	pkicommon "github.com/banzaicloud/koperator/pkg/util/pki"
 )
 
+// TODO 启动Pod并自己管理，自己实现了类似STS控制器的机制
 func (r *Reconciler) pod(id int32, brokerConfig *v1beta1.BrokerConfig, pvcs []corev1.PersistentVolumeClaim, log logr.Logger) runtime.Object {
 	var kafkaBrokerContainerPorts []corev1.ContainerPort
 

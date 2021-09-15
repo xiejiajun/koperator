@@ -267,7 +267,9 @@ func (r *Reconciler) Reconcile(log logr.Logger) error {
 				return errors.WrapIfWithDetails(err, "failed to reconcile resource", "resource", o.GetObjectKind().GroupVersionKind())
 			}
 		}
+		// TODO 启动Pod
 		o := r.pod(broker.Id, brokerConfig, pvcs, log)
+		// TODO Pod状态调和
 		err = r.reconcileKafkaPod(log, o.(*corev1.Pod), brokerConfig)
 		if err != nil {
 			return err
