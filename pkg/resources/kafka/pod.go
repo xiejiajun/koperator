@@ -97,8 +97,8 @@ touch /var/run/wait/do-not-exit-yet
 rm /var/run/wait/do-not-exit-yet`}
 
 	pod := &corev1.Pod{
-		ObjectMeta: templates.ObjectMetaWithGeneratedNameAndAnnotations(
-			fmt.Sprintf("%s-%d-", r.KafkaCluster.Name, id),
+		ObjectMeta: templates.ObjectMetaWithNameAndAnnotations(
+			fmt.Sprintf("%s-%d", r.KafkaCluster.Name, id),
 			util.MergeLabels(
 				kafkautils.LabelsForKafka(r.KafkaCluster.Name),
 				map[string]string{"brokerId": fmt.Sprintf("%d", id)},
